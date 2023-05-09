@@ -10,6 +10,8 @@ pipeline {
       steps {
         container('docker') {
           sh "docker build -t harbor-registry.harbor:8080/echo-ip ."
+        }
+        container('docker') {
           sh "docker push harbor-registry.harbor:8080/echo-ip"
         }
       }
