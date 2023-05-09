@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/IaC-Source/echo-ip.git', branch: 'main'
+        git url: 'https://github.com/junhp1234/echo-ip.git', branch: 'main_2'
       }
     }
     stage('docker build and push') {
