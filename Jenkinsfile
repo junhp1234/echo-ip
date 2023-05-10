@@ -1,9 +1,11 @@
 pipeline {
   agent {
-    containerTemplate {
-      name 'jenkins'
-      image 'jenkins/jenkins:lts'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    kubernetes {
+      containerTemplate {
+        name 'jenkins'
+        image 'jenkins/jenkins:lts'
+        args '-v /var/run/docker.sock:/var/run/docker.sock'
+      }
     }
   }
   stages {
