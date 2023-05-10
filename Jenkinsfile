@@ -8,6 +8,7 @@ pipeline {
     }
     stage('docker build and push') {
       steps {
+        sh "docker login harbor.cu.ac.kr | echo '0000'"
         sh "docker build -t harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip"
       }
