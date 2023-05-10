@@ -8,10 +8,11 @@ pipeline {
     }
     stage('docker build and push') {
       steps {
-        sh '''
-        docker build -t harbor-registry.harbor:8080/echo-ip .
-        docker push harbor-registry.harbor:8080/echo-ip
-        '''
+        groups
+        id
+        sh "docker ps -a"
+        sh "docker build -t harbor-registry.harbor:8080/echo-ip ."
+        sh "docker push harbor-registry.harbor:8080/echo-ip"
       }
     }
     stage('deploy kubernetes') {
