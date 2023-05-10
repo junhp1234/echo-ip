@@ -9,9 +9,9 @@ pipeline {
         git url: 'https://github.com/junhp1234/echo-ip.git', branch: 'any'
       }
     }
-    stage('docker build and push') {
+    stage('docker login, build and push') {
       steps {
-        sh "echo $HARBOR_CREDENTIAL_PSW | docker login harbor.cu.ac.kr"
+        sh "echo $HARBOR_CREDENTIAL_PSW | docker login harbor.cu.ac.kr --password-stdin"
         sh "docker build -t harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip"
       }
