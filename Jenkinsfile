@@ -8,8 +8,8 @@ pipeline {
     }
     stage('docker build and push') {
       steps {
-        groups
-        id
+        sh "groups"
+        sh "id"
         sh "docker ps -a"
         sh "docker build -t harbor-registry.harbor:8080/echo-ip ."
         sh "docker push harbor-registry.harbor:8080/echo-ip"
