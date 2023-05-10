@@ -12,6 +12,7 @@ podTemplate(label: 'jenkins-slave-pod',
   ]
 )
 pipeline {
+  agent any
   stages {
     stage('git scm update') {
       steps {
