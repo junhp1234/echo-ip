@@ -12,6 +12,7 @@ pipeline {
         sh "groups"
         sh "cat /etc/group"
         sh "which docker"
+        sh "ls -l /bin/docker"
         sh "docker ps -a"
         sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
