@@ -1,33 +1,26 @@
 pipeline {
   agent {
     kubernetes {
-      yaml """
-apiVersion: v1
-kind: Pod
-spec:
-containers:
-- name: docker-client
-  image: docker:19.03.1
-  command: ['sleep', '99d']
-  env:
-    - name: DOCKER_HOST
-      value: tcp://localhost:2375
-- name: docker-daemon
-  image: docker:19.03.1-dind
-  env:
-    - name: DOCKER_TLS_CERTDIR
-      value: ""
-  securityContext:
-    privileged: true
-  volumeMounts:
-      - name: cache
-        mountPath: /var/lib/docker
-volumes:
-  - name: cache
-    hostPath:
-      path: /tmp
-      type: Directory
-"""
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+            securityContext:
+              privileged: true
+          volumes:
+          - name: docker-sock
+            hostPath:
+              path: /var/run/docker.sock
+        '''
     }
   }
   stages {
@@ -38,7 +31,7 @@ volumes:
     }
     stage('docker build and push') {
       steps {
-        container('docker-client') {
+        container('docker') {
           sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
           sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
         }
