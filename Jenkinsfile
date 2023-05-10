@@ -1,7 +1,8 @@
 pipeline {
   agent any
   environment {
-    REGISTRY = '10.111.86.14:8080'
+    // REGISTRY = '10.111.86.14:8080'
+    REGISTRY = '10.103.220.177:31941'
     HARBOR_CREDENTIAL = credentials('junhp1234')
   }
   stages {
