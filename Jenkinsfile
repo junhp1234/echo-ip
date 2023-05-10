@@ -10,6 +10,7 @@ pipeline {
       steps {
         sh "id"
         sh "groups"
+        docker ps -a
         sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
       }
