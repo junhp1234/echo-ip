@@ -1,25 +1,9 @@
 pipeline {
   agent {
-    kubernetes {
-      defaultContainer 'jnlp'
-      yaml """
-spec:
-  dnsPolicy: Default
-  containers:
-    - name: docker
-      image: docker:latest
-      command:
-        - cat
-      tty: true
-      privileged: true
-      volumeMounts:
-        - name: dockersock
-          mountPath: /var/run/docker.sock
-  volumes:
-    - name: dockersock
-      hostPath:
-        path: /var/run/docker.sock
-           """
+    containerTemplate {
+      name 'jenkins'
+      image 'jenkins/jenkins:lts'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
   stages {
@@ -30,7 +14,7 @@ spec:
     }
     stage('docker build and push') {
       steps {
-        container('docker') {
+        container('jenkins') {
           sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
           sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
         }
