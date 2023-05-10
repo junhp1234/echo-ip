@@ -7,15 +7,22 @@ pipeline {
         spec:
           containers:
           - name: docker
-            image: docker:latest
+            image: docker:19.03.1
             command:
             - cat
             tty: true
-            volumeMounts:
-             - mountPath: /var/run/docker.sock
-               name: docker-sock
             securityContext:
               privileged: true
+            volumeMounts:
+             - name: docker-sock
+               mountPath: /var/run/docker.sock
+          - name: docker-daemon
+            image: docker:19.03.1-dind
+            env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+  securityContext:
+    privileged: true
           volumes:
           - name: docker-sock
             hostPath:
