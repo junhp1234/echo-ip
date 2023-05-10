@@ -11,9 +11,11 @@ pipeline {
     }
     stage('docker login, build and push') {
       steps {
-        sh "echo $HARBOR_CREDENTIAL_PSW | docker login harbor.cu.ac.kr --password-stdin"
-        sh "docker build -t harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip ."
-        sh "docker push harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip"
+        sh '''
+        echo $HARBOR_CREDENTIAL_PSW | docker login harbor.cu.ac.kr --password-stdin
+        docker build -t harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip .
+        docker push harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip
+        '''
       }
     }
     stage('deploy kubernetes') {
