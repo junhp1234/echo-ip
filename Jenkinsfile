@@ -11,7 +11,6 @@ pipeline {
         sh "id"
         sh "groups"
         sh "cat /etc/group"
-        sh "sleep 300s"
         sh "docker ps -a"
         sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
