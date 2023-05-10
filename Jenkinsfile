@@ -2,9 +2,11 @@ pipeline {
   agent {
     kubernetes {
       containerTemplate {
-        name 'jenkins'
-        image 'jenkins/jenkins:lts'
-        args '-v /var/run/docker.sock:/var/run/docker.sock'
+        name: 'jenkins'
+        image: 'jenkins/jenkins:lts'
+      }
+      volumes {
+        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
       }
     }
   }
