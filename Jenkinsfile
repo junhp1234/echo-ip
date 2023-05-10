@@ -1,18 +1,19 @@
-podTemplate(label: 'jenkins-slave-pod', 
-  containers: [
-    containerTemplate(
-      name: 'docker',
-      image: 'docker',
-      command: 'cat',
-      ttyEnabled: true
-    )
-  ],
-  volumes: [ 
-    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'), 
-  ]
-)
+
 pipeline {
   agent any
+  podTemplate(label: 'jenkins-slave-pod', 
+    containers: [
+      containerTemplate(
+        name: 'docker',
+        image: 'docker',
+        command: 'cat',
+        ttyEnabled: true
+      )
+    ],
+    volumes: [ 
+      hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'), 
+    ]
+  )
   stages {
     stage('git scm update') {
       steps {
