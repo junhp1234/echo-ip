@@ -32,6 +32,8 @@ pipeline {
     stage('docker build and push') {
       steps {
         container('docker') {
+          sh "id"
+          sh "groups"
           sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
           sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
         }
