@@ -6,11 +6,6 @@ pipeline {
         kind: Pod
         spec:
           containers:
-          - name: maven
-            image: maven:alpine
-            command:
-            - cat
-            tty: true
           - name: docker
             image: docker:latest
             command:
@@ -20,11 +15,11 @@ pipeline {
              - mountPath: /var/run/docker.sock
                name: docker-sock
             securityContext:
-              allowPrivilegeEscalation: false
+              privileged: true
           volumes:
           - name: docker-sock
             hostPath:
-              path: /var/run/docker.sock    
+              path: /var/run/docker.sock
         '''
     }
   }
