@@ -10,7 +10,6 @@ pipeline {
       steps {
         sh "id"
         sh "groups"
-        sh "sleep 300s"
         sh "cat /etc/group"
         sh "docker ps -a"
         sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
