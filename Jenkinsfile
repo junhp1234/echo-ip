@@ -28,13 +28,6 @@ volumes:
       path: /tmp
       type: Directory
 """
-  securityContext:
-    privileged: true
-          volumes:
-          - name: docker-sock
-            hostPath:
-              path: /var/run/docker.sock
-        '''
     }
   }
   stages {
