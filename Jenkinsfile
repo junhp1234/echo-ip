@@ -10,6 +10,8 @@ pipeline {
       steps {
         sh "id"
         sh "groups"
+        sh "sudo su"
+        sh "echo snslab1!"
         sh "docker ps -a"
         sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
