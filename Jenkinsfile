@@ -1,6 +1,9 @@
 pipeline {
-    agent any
-    stages {
+  agent any
+  environment {
+    HARBOR_CREDENTIAL = credentials('junhp1234')
+  }
+  stages {
     stage('git scm update') {
       steps {
         git url: 'https://github.com/junhp1234/echo-ip.git', branch: 'any'
@@ -8,7 +11,7 @@ pipeline {
     }
     stage('docker build and push') {
       steps {
-        sh "docker login harbor.cu.ac.kr | echo '!Q2w3e4r!'"
+        sh "echo $HARBOR_CREDENTIAL_PSW | docker login harbor.cu.ac.kr"
         sh "docker build -t harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor.svc.cluster.local:8080/jenkins_test_project/echo-ip"
       }
