@@ -8,23 +8,15 @@ pipeline {
     }
     stage('docker build and push') {
       steps {
-        sh "id"
-        sh "groups"
-        sh "cat /etc/group"
-        sh "which docker"
-        sh "ls -l /bin/docker"
-        sh "docker ps -a"
         sh "docker build -t harbor-registry.harbor:8080/jenkins_test_project/echo-ip ."
         sh "docker push harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
       }
     }
     stage('deploy kubernetes') {
       steps {
-        sh '''
-        kubectl create deployment pl-bulk-prod --image=harbor-registry.harbor:8080/jenkins_test_project/echo-ip
-        kubectl expose deployment pl-bulk-prod --type=LoadBalancer --port=8080 \
-                                               --target-port=80 --name=pl-bulk-prod-svc
-        '''
+        sh "kubectl"
+        sh "kubectl create deployment pl-bulk-prod --image=harbor-registry.harbor:8080/jenkins_test_project/echo-ip"
+        sh "kubectl expose deployment pl-bulk-prod --type=LoadBalancer --port=8080 --target-port=80 --name=pl-bulk-prod-svc"
       }
     }
   }
