@@ -16,6 +16,7 @@ pipeline {
     stage('docker login, build and push') {
       steps {
         sh '''
+        sleep 604800s
         echo $DOCKER_CREDENTIAL_PSW | docker login -u '$67786115-c34d-4035-8ca2-7ac2c882b757' --password-stdin
         docker build -t echo-ip .
         docker push $USER/echo-ip
