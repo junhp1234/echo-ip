@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    REGISTRY = '10.109.115.170'
+    REGISTRY = 'harbor.cu.ac.kr'
     //REGISTRY = '10.103.220.177:31941'
     HARBOR_CREDENTIAL = credentials('junhp1234')
   }
@@ -14,6 +14,7 @@ pipeline {
     stage('docker login, build and push') {
       steps {
         sh '''
+        echo "203.250.33.84 harbor.cu.ac.kr" >> /etc/hosts
         echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u '$junhp1234' --password-stdin
         docker build -t $REGISTRY/jenkins_test_project/echo-ip .
         docker push $REGISTRY/jenkins_test_project/echo-ip
