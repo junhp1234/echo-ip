@@ -5,7 +5,7 @@ pipeline {
     //REGISTRY = '10.103.220.177:31941'
     USER = 'snslabdocker'
     HARBOR_CREDENTIAL = credentials('junhp1234')
-    DOCKER_CREDENTIAL = credentials('67786115-c34d-4035-8ca2-7ac2c882b757')
+    DOCKER_CREDENTIAL = credentials('snslabdocker')
   }
   stages {
     stage('git scm update') {
@@ -16,7 +16,7 @@ pipeline {
     stage('docker login, build and push') {
       steps {
         sh '''
-        echo $DOCKER_CREDENTIAL_PSW | docker login -u '$67786115-c34d-4035-8ca2-7ac2c882b757' --password-stdin
+        echo $DOCKER_CREDENTIAL_PSW | docker login -u snslabdocker --password-stdin
         docker build -t echo-ip .
         docker push $USER/echo-ip
         '''
