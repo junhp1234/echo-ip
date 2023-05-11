@@ -15,6 +15,7 @@ pipeline {
       steps {
         sh '''
         echo "203.250.33.84 harbor.cu.ac.kr" >> /etc/hosts
+        sleep 1000s
         echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u '$junhp1234' --password-stdin
         docker build -t $REGISTRY/jenkins_test_project/echo-ip .
         docker push $REGISTRY/jenkins_test_project/echo-ip
