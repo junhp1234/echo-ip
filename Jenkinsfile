@@ -3,7 +3,9 @@ pipeline {
   environment {
     REGISTRY = 'harbor.cu.ac.kr'
     //REGISTRY = '10.103.220.177:31941'
+    USER = 'snslabdocker'
     HARBOR_CREDENTIAL = credentials('junhp1234')
+    DOCKER_CREDENTIAL = credentials($USER)
   }
   stages {
     stage('git scm update') {
@@ -14,11 +16,9 @@ pipeline {
     stage('docker login, build and push') {
       steps {
         sh '''
-        echo "203.250.33.84 harbor.cu.ac.kr" >> /etc/hosts
-        sleep 1000s
-        echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u '$junhp1234' --password-stdin
-        docker build -t $REGISTRY/jenkins_test_project/echo-ip .
-        docker push $REGISTRY/jenkins_test_project/echo-ip
+        echo $DOCKER_CREDENTIAL_PSW | docker login -u '$snslabdocker' --password-stdin
+        docker build -t echo-ip .
+        docker push $USER/echo-ip
         '''
       }
     }
