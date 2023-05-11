@@ -17,7 +17,7 @@ pipeline {
       steps {
         sh '''
         echo $DOCKER_CREDENTIAL_PSW | docker login -u snslabdocker --password-stdin
-        docker build -t echo-ip .
+        docker build -t snslabdocker/echo-ip .
         docker push echo-ip snslabdocker/echo-ip
         '''
       }
