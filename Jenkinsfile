@@ -6,11 +6,12 @@ pipeline {
     USER = 'snslabdocker'
     HARBOR_CREDENTIAL = credentials('junhp1234')
     DOCKER_CREDENTIAL = credentials('snslabdocker')
+    GITHUB_CREDENTIAL = credentials('junhp1234_github')
   }
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/junhp1234/echo-ip.git', credentialsId: 'junhp1234_github_token', branch: 'any'
+        git url: 'https://github.com/junhp1234/echo-ip.git', credentialsId: '$GITHUB_CREDENTIAL_PSW', branch: 'any'
       }
     }
     stage('docker login, build and push') {
