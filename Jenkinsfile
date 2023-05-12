@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/junhp1234/echo-ip.git', credential: 'junhp1234_github_token', branch: 'any'
+        git url: 'https://github.com/junhp1234/echo-ip.git', credentialsId: 'junhp1234_github_token', branch: 'any'
       }
     }
     stage('docker login, build and push') {
